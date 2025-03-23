@@ -22,14 +22,14 @@ jobs:
              
     e2e-test:
          runs-on: ubuntu-latest
-         if: ${{success()}}
+         needs: deploy-pre
          steps:
              - name: E2E test
                run: echo Running E2E
  
     deploy-pro:
          runs-on: ubuntu-latest
-         if: ${{success()}}
+         needs: e2e-test         
          environment: pro
          env:
              my-env-value: ${{vars.MY_ENV_VALUE != '' && vars.MY_ENV_VALUE || 'default value'}}
