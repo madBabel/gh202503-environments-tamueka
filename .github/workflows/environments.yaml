@@ -7,13 +7,15 @@ on:
                  type: environment
                  default: pre
 
+run-name: Working with Envoiroments | env - ${{inputs.target-env}}
+
 jobs:
      echo:
          env:
-             my-env-value: MY_ENV_VALUE
-         environment: ${{inputs.target-env}}
+            my_env_value:  "${{vars.MY_ENV_VALUE != '' && vars.MY_ENV_VALUE || 'default value'}}"
+            environment: ${{inputs.target-env}}
          runs-on: ubuntu-latest
          steps:
              - name: Echo vars
                run: |
-                 echo Env variable: $MY_ENV_VALUE
+                echo Env variable: ${{env.my_env_value}}
